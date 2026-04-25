@@ -86,7 +86,15 @@ Registra tempo de execução em log
 
 O tempo de execução das funções é registrado automaticamente no arquivo tempo_execucao.log. 
 
+## Testes
 Isso permite análise de desempenho e comparação entre execuções.
+Os testes automatizados foram implementados utilizando o framework pytest com foco no módulo lgpd.py, responsável pela anonimização de dados sensíveis, sendo testadas as funcionalidades de anonimização de nomes, CPF, e-mail e telefone, além do funcionamento da classe LGPD e do decorador, garantindo que as funções produzam resultados corretos e consistentes para diferentes entradas; a execução dos testes pode ser realizada com o comando `python -m pytest`. A cobertura de testes foi concentrada nesse módulo porque ele contém lógica pura, ou seja, funções determinísticas que recebem dados de entrada e retornam resultados previsíveis, o que o torna adequado para testes unitários; por outro lado, os demais módulos do projeto envolvem dependência de banco de dados por meio do SQLAlchemy, operações de entrada e saída como geração de arquivos CSV e execução de efeitos colaterais como escrita em log e impressão em console, características que dificultam a aplicação de testes unitários diretos e exigem técnicas mais avançadas como mocking e testes de integração, razão pela qual foi adotada a estratégia de priorizar os testes no núcleo lógico do sistema, onde há maior previsibilidade e controle.
+
+Os módulos atividade2.py, atividade3.py e atividade4.py não possuem testes unitários porque não apresentam as características necessárias para esse tipo de teste. Diferente do módulo lgpd.py, que contém lógica pura e determinística (recebe dados, processa e retorna sempre o mesmo resultado para a mesma entrada), esses arquivos dependem de elementos externos ao código. Nos casos de atividade2.py e atividade3.py, as funções acessam banco de dados por meio do SQLAlchemy, executam consultas reais e geram arquivos CSV, o que torna o resultado dependente do ambiente, dos dados existentes e do sistema de arquivos. Já em atividade4.py, o decorador mede tempo de execução, escreve em log e imprime no console, ou seja, produz efeitos colaterais e utiliza valores variáveis como o tempo, que não são previsíveis. Essas características impedem o isolamento necessário para testes unitários, que exigem controle total das entradas e saídas. Para testar esses módulos corretamente, seria necessário utilizar técnicas mais avançadas como mocking ou testes de integração, que não eram o foco do projeto. Por isso, os testes foram concentrados no módulo lgpd.py, onde há previsibilidade, controle e validação direta da lógica implementada.
+
+
+
+
 
 ## Conclusão
 
