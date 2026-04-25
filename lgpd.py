@@ -47,14 +47,14 @@ def LGPD(row):
     telefone = anonimizar_telefone(telefone)
     return (id, nome, cpf, email, telefone, data_nascimento, created_on, updated_on)
 
-# Consulta ao banco
-users = []
-with engine.connect() as conn:
-    result = conn.execute(text("SELECT * FROM usuarios LIMIT 5;"))
-    for row in result:
-        row = LGPD(row)
-        users.append(row)
+# Teste só roda se você executar diretamente este arquivo
+if __name__ == "__main__":
+    users = []
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM usuarios LIMIT 5;"))
+        for row in result:
+            row = LGPD(row)
+            users.append(row)
 
-# Impressão dos registros anonimizados
-for user in users:
-    print(user)
+    for user in users:
+        print(user)
